@@ -20,7 +20,9 @@ class RequestFilter
     {
         // if user is unauthenticated redirecting him to login page
         if (!$request->user()) {
-            return redirect()->route('login');
+            return $next($request);
+
+            // return redirect()->route('login');
         }
 
         $requested_url = $request->path();
@@ -35,7 +37,9 @@ class RequestFilter
             // return back();
         }
         else{
-            return back();
+            // return back();
+            return $next($request);
+
         }
 
 

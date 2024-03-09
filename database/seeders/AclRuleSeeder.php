@@ -17,7 +17,7 @@ class AclRuleSeeder extends Seeder
             [
                 'id' => 1,
                 'user_id' => 1,
-                'role' => 'admin',
+                'role' => 'super_admin',
                 'district' => '',
                 'sub_division' => '',
                 'created_at' => now()
@@ -25,7 +25,7 @@ class AclRuleSeeder extends Seeder
             [
                 'id' => 2,
                 'user_id' => 2,
-                'role' => 'director',
+                'role' => 'agri_expert',
                 'district' => '',
                 'sub_division' => '',
                 'created_at' => now()
@@ -33,25 +33,9 @@ class AclRuleSeeder extends Seeder
             [
                 'id' => 3,
                 'user_id' => 3,
-                'role' => 'officer',
+                'role' => 'farmer',
                 'district' => '',
                 'sub_division' => 'Udaipur',
-                'created_at' => now()
-            ],
-            [
-                'id' => 4,
-                'user_id' => 4,
-                'role' => 'training_partner_patanjali',
-                'district' => '',
-                'sub_division' => '',
-                'created_at' => now()
-            ],
-            [
-                'id' => 5,
-                'user_id' => 5,
-                'role' => 'training_partner_godrej',
-                'district' => '',
-                'sub_division' => '',
                 'created_at' => now()
             ],
         ];

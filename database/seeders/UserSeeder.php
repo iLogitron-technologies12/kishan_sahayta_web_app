@@ -17,41 +17,25 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'id' => 1,
-                'name' => 'Admin',
-                'email' => 'admin@demo.com',
+                'name' => 'Super Admin',
+                'email' => 'super_admin@demo.com',
                 'mobile_no' => '0000000000',
                 'password' => Hash::make('123456'),
                 'created_at' => now()
             ],
             [
                 'id' => 2,
-                'name' => 'Director',
-                'email' => 'director@demo.com',
+                'name' => 'Agri Expert',
+                'email' => 'agri_expert@demo.com',
                 'mobile_no' => '0000000000',
                 'password' => Hash::make('123456'),
                 'created_at' => now()
             ],
             [
                 'id' => 3,
-                'name' => 'Officer',
-                'email' => 'officer@demo.com',
+                'name' => 'Farmer',
+                'email' => 'farmer@demo.com',
                 'mobile_no' => '0000000000',
-                'password' => Hash::make('123456'),
-                'created_at' => now()
-            ],
-            [
-                'id' => 4,
-                'name' => 'Training Partner Patanjali',
-                'email' => 'tp.patanjali@demo.com',
-                'mobile_no' => '1111111111',
-                'password' => Hash::make('123456'),
-                'created_at' => now()
-            ],
-            [
-                'id' => 5,
-                'name' => 'Training Partner Godrej',
-                'email' => 'tp.godrej@demo.com',
-                'mobile_no' => '1111111111',
                 'password' => Hash::make('123456'),
                 'created_at' => now()
             ],

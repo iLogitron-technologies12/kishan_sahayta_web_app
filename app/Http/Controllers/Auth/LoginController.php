@@ -23,13 +23,13 @@ class LoginController extends Controller
             [
                 'email' => 'required',
                 'password' => 'required',
-                'captcha' => 'required|string|size:6|in:' . session('captcha_text'),
+                'captcha' => 'required|in:' . session('captcha_text'),
             ],
             [
-                'captcha.in' => 'The captcha field must match the displayed text.',
+                'captcha.in' => 'Invalid captcha.',
             ]
         );
-        dd($request->all());
+        // dd($request->all());
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
@@ -37,11 +37,14 @@ class LoginController extends Controller
             $role = optional(Auth::user())->Role();
             // dd($role);
 
-            if ($role == 'officer') {
-                return redirect()->intended('/officer/applications');
-            } elseif (($role == 'training_partner_patanjali') || ($role == 'training_partner_godrej')) {
+            //     return redirect()->intended('/officer/applications');
+
+
+            if ($role == 'super_admin') {
+                return redirect()->intended('/superadmin/dashboard');
+            } elseif (($role == 'agri_expert') || ($role == 'training_partner_godrej')) {
                 return redirect()->intended('/training-partner/submitted-applications');
-            } elseif ($role == 'director') {
+            } elseif ($role == 'farmer') {
                 return redirect()->intended('/director/all-applications');
             }
 
