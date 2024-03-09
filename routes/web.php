@@ -28,6 +28,14 @@ use App\Http\Controllers\SuperAdminController;
 Route::get('/login', [LoginController::class, 'login_page'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
+//Route for Forgot password page
+Route::get('/forgot-password',[LoginController::class,'forgot_password'])->name('forgot-password');
+Route::post('/forgot-password',[LoginController::class,'check_forgot_password_otp'])->name('check-otp');
+//Route for generate OTP
+Route::get('/generate-otp-for-forget-password',[LoginController::class,'generate_otp_for_forgot_password']);
+//Route for change Password page
+Route::get('/change-forgot-password',[LoginController::class,'change_forgot_password'])->name('change-forgot-password');
+Route::post('/change-forgot-password',[LoginController::class,'recreate_password'])->name('recreate-password');
 
 
 Route::get('/', [HomeController::class, 'index']);

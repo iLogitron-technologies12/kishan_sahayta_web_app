@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('user_otps', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
+            $table->string('otp_sent_for');
+            $table->bigInteger('phone_number');
             $table->bigInteger('otp');
-            $table->dateTime('expire_at');
             $table->timestamps();
         });
     }
