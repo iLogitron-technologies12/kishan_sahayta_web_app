@@ -10,6 +10,7 @@ use App\Http\Controllers\FarmerApplicationController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DisbursementController;
+use App\Http\Controllers\SuperAdminController;
 
 
 
@@ -30,6 +31,103 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 
 Route::get('/', [HomeController::class, 'index']);
+
+/* ****************************************** **********Routes for super admin part ********** ********************************************** */
+
+// Dashboard that will be only accessed by officer
+Route::middleware(['request-filter'])->group(function () {
+    Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('super_admin.dashboard');
+    // Route::get('/officer/application-filter', [FarmerApplicationController::class, 'officer_applications'])->name('officer.application_filter');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /******************************************* **********Routes for new application ********** ********************************************** */
 
@@ -141,7 +239,7 @@ Route::get('/training-partner/approved-applications', [FarmerApplicationControll
 
 Route::get('/training-partner/all-others-applications', [FarmerApplicationController::class, 'training_partner_view_all_others_applications']);
 
-//***** training_partner_view_forwarded_applications changed into training_partner_view_submitted_applications****Ujjal Sarkar**   
+//***** training_partner_view_forwarded_applications changed into training_partner_view_submitted_applications****Ujjal Sarkar**
 // for loading Forwarded changed into submitted applications
 Route::get('/training-partner/submitted-applications', [FarmerApplicationController::class, 'training_partner_view_submitted_applications']);
 
@@ -214,8 +312,8 @@ Route::get('/success', [HomeController::class, 'success'])->name('success');
 Route::get('/saved-success', [HomeController::class, 'saved_sucess'])->name('saved-success');
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/farmer-registration', [FarmerRegistrationController::class, 'index']);
-Route::post('/farmer-registration', [FarmerRegistrationController::class, 'farmerdata']);
+// Route::get('/farmer-registration', [FarmerRegistrationController::class, 'index']);
+// Route::post('/farmer-registration', [FarmerRegistrationController::class, 'farmerdata']);
 // Route::get('/farmers',function(){
 //     $farmer=Farmer::all();
 //     echo "<pre>";
@@ -289,7 +387,7 @@ Route::get('officer/add-officer', [RegisterController::class, 'add_officer']);
 
 //*****************New Route Addition***************27/12/2023******************************
 Route::get('/director/add-officer', [RegisterController::class, 'add_officer']);
-Route::post('/director/add-officer', [RegisterController::class, 'add_officer_in_table'])->name('director.add_officer'); 
+Route::post('/director/add-officer', [RegisterController::class, 'add_officer_in_table'])->name('director.add_officer');
 
 Route::group(['middleware' => ['web']], function () {
 Route::post('/director/update-details-officer', [RegisterController::class, 'update_details_of_officer'])->name('director.update_details');
