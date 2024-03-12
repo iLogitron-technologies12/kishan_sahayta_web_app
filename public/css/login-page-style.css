@@ -1,0 +1,135 @@
+ body {
+            font: 400 1rem/1.625rem "Montserrat", sans-serif;
+        }
+        .card {
+            margin-top: 50px;
+        }
+        .form-background {
+             background-image: linear-gradient(to right,  rgba(43, 162, 11),rgba(255,0,0,0));
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100vw;
+        }
+        .login-form{
+             margin: 0;
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             -ms-transform: translate(-50%, -50%);
+             transform: translate(-50%, -50%);
+        }
+        /* .login-form-row{
+            height: 60vh;
+        } */
+        .column{
+            padding: 0!important;
+        }
+        .application-title {
+            text-align: center;
+            font-family: "Madimi One", sans-serif;
+        }
+        .forgot-password{
+           text-align: center; 
+        }
+        .form-body{
+            background:rgb(227, 253, 220 );
+            height: 100%;
+            padding: 10px 25px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+             box-shadow: 10px 10px 8px #888888;
+        }
+        .login-page-image{
+            height: 100%;
+            width: 100%;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+        .form-input-field{
+           background-color: #FFFFFF;
+    border: 1px solid #AFFC9A;
+    border-radius: 20px;
+    padding: 5px 31px;
+    margin-bottom: 10px;
+    width: 100%;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+        }
+        #captcha{
+        user-select: none;
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        font-weight: bolder;
+        letter-spacing: 5px; /* Adjust as needed */
+        color: #333; /* Adjust color as needed */   
+        border: 1px solid #ccc;
+        padding: 5px;
+        display: inline-block;
+        margin-bottom: 5px; 
+        outline: none;
+        } 
+        input:focus {
+             outline:none;
+        } 
+        .forgot-password{
+            font-size: 15px;
+            margin-top: 10px;
+        }
+        .forgot-password a{
+            text-decoration: none;
+            color: #DC033B ;
+            font-weight: bolder;
+        } 
+        .col-form-label{
+            font-weight: bolder;
+        } 
+        .submit-class{
+            width: 100%;
+            border-radius: 20px;
+        }
+        /*################## start styleing for forgot password OTP verified page ################*/
+        .forgot-input-field-spaces{
+            margin-top: 15px;
+        }
+        .forgot-pass-form-body{
+            background:rgb(227, 253, 220 );
+            height: 100%;
+            padding: 10px 25px;
+           border-radius: 20px;
+             box-shadow: 10px 10px 8px #888888;
+        }
+        .icon {
+            padding: 10px;
+            min-width: 40px;
+            position: absolute;
+            right: 20px;
+        }
+        .toggle-password{
+            cursor: pointer;
+        }
+        /*################## End styleing for forgot password OTP verified page ################*/
+
+        @media(max-width: 768px){
+             .form-body{
+            background: #DAF2FC;
+            height: 100%;
+            padding: 10px 25px;
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-top-right-radius:0;
+             box-shadow: 10px 10px 8px #888888;
+        }
+        .login-page-image{
+            height: 100%;
+            width: 100%;
+            border-top-right-radius: 20px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius:0;
+        }
+
+        }
+    
