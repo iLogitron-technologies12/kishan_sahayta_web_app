@@ -41,7 +41,7 @@ class LoginController extends Controller
 
 
             if ($role == 'super_admin') {
-                return redirect()->intended('/superadmin/dashboard');
+                return redirect()->intended('/superadmin/create-agri-experts');
             } elseif (($role == 'agri_expert') || ($role == 'training_partner_godrej')) {
                 return redirect()->intended('/training-partner/submitted-applications');
             } elseif ($role == 'farmer') {

@@ -30,15 +30,29 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('/');
 
 /* ****************************************** **********Routes for super admin part ********** ********************************************** */
 
-// Dashboard that will be only accessed by officer
+// Dashboard that will be only accessed by Super Admin
 Route::middleware(['request-filter'])->group(function () {
-    Route::get('/superadmin/dashboard', [SuperAdminController::class, 'dashboard'])->name('super_admin.dashboard');
+    Route::get('/superadmin/add-agri-experts', [SuperAdminController::class, 'dashboard'])->name('super_admin.manage_agri_expert');
     // Route::get('/officer/application-filter', [FarmerApplicationController::class, 'officer_applications'])->name('officer.application_filter');
 
+    Route::post('/superadmin/add-agri-experts', [RegisterController::class, 'add_agri_expert'])->name('super_admin.create_agri_expert');
+
+    // For managing agri experts
+    Route::get('/superadmin/manage-agri-experts', [RegisterController::class, 'manage_agri_experts'])->name('super_admin.manage_agri_experts');
+
+    // For viewing the page for editing particular agri experts
+    Route::get('/superadmin/manage-agri-experts/edit-user/{id}', [RegisterController::class, 'view_edit_agri_experts'])->name('super_admin.view_edit_agri_experts');
+
+
+    // For viewing the page for editing particular agri experts
+    Route::post('/superadmin/manage-agri-experts/edit-user/{id}', [RegisterController::class, 'edit_agri_experts'])->name('super_admin.edit_agri_experts');
+
+
+    Route::get('/code-copy', [RegisterController::class, 'code_copy']);
 });
 
 
@@ -213,15 +227,15 @@ Route::get('/change-password', [RegisterController::class, 'change_password'])->
 Route::get('/profile', [RegisterController::class, 'profile'])->name('profile');
 
 //################################################################ NEW ADDITION at 10.02.2024 #########################################
-Route::get('/officer/view-disbursement/{id}',[DisbursementController::class,'viewDisbursement'])->name('officer.view_disbursement');
+Route::get('/officer/view-disbursement/{id}', [DisbursementController::class, 'viewDisbursement'])->name('officer.view_disbursement');
 
-Route::post('/officer/save-disbursement/{id}',[DisbursementController::class,'saveDisbursement'])->name('officer.save_disbursement');
+Route::post('/officer/save-disbursement/{id}', [DisbursementController::class, 'saveDisbursement'])->name('officer.save_disbursement');
 
-Route::get('/officer/view-manage-training',[DisbursementController::class,'viewManageTraining'])->name('officer.view-manage-training');
+Route::get('/officer/view-manage-training', [DisbursementController::class, 'viewManageTraining'])->name('officer.view-manage-training');
 
-Route::post('/officer/view-manage-training',[DisbursementController::class,'savetrainingData'])->name('officer.save-training');
+Route::post('/officer/view-manage-training', [DisbursementController::class, 'savetrainingData'])->name('officer.save-training');
 
-Route::post('/officer/approve-training-status/{id}',[DisbursementController::class,'approve_training_status'])->name('officer.approve-training-status');
+Route::post('/officer/approve-training-status/{id}', [DisbursementController::class, 'approve_training_status'])->name('officer.approve-training-status');
 
 /******************************************* **********Routes for role officer ends here ********** ********************************************** */
 
@@ -272,7 +286,7 @@ Route::post('/training-partner/approved-application-filter', [FarmerApplicationC
 Route::get('training-partner/view-approved-application/{id}', [FarmerApplicationController::class, 'training_partner_view_approved_application'])->name('training_partner.view_approved_application');
 
 //For view profile of Training Partner***Ujjal Sarkar***
-Route::get('/training-partner/profile',[UserController::class,'training_partner']);
+Route::get('/training-partner/profile', [UserController::class, 'training_partner']);
 
 /******************************************* **********Routes for training_partner ends here ********** ********************************************** */
 
@@ -369,17 +383,17 @@ Route::middleware(['request-filter'])->group(function () {
 //######################################################################################################################
 //#########################################################################################################################
 //**************************************chart dashboard for Director,Officer and Training Partner**************************************************
-Route::get('/director/dashboard',[FarmerApplicationController::class, 'dashboard_for_director']);
+Route::get('/director/dashboard', [FarmerApplicationController::class, 'dashboard_for_director']);
 
-Route::get('/get-farmer-details-based-on-date',[DashboardController::class,'datechart']);
+Route::get('/get-farmer-details-based-on-date', [DashboardController::class, 'datechart']);
 
-Route::get('/officer/dashboard',[FarmerApplicationController::class, 'dashboard_for_officer']);
+Route::get('/officer/dashboard', [FarmerApplicationController::class, 'dashboard_for_officer']);
 //Route::get('/director/dashboard',[DashboardController::class,'dashboard_of_date_applications']);
-Route::get('/get-farmer-all-details-for-officer',[DashboardController::class,'applications_dashboard_for_officer']);
+Route::get('/get-farmer-all-details-for-officer', [DashboardController::class, 'applications_dashboard_for_officer']);
 
-Route::get('/training-partner/dashboard',[FarmerApplicationController::class,'dashboard_for_training_partner']);
+Route::get('/training-partner/dashboard', [FarmerApplicationController::class, 'dashboard_for_training_partner']);
 
-Route::get('/get-farmer-details-based-on-date-for-training-partner',[DashboardController::class,'application_for_training_partner']);
+Route::get('/get-farmer-details-based-on-date-for-training-partner', [DashboardController::class, 'application_for_training_partner']);
 
 // route for adding officer:
 
@@ -390,6 +404,6 @@ Route::get('/director/add-officer', [RegisterController::class, 'add_officer']);
 Route::post('/director/add-officer', [RegisterController::class, 'add_officer_in_table'])->name('director.add_officer');
 
 Route::group(['middleware' => ['web']], function () {
-Route::post('/director/update-details-officer', [RegisterController::class, 'update_details_of_officer'])->name('director.update_details');
-Route::post('/director/delete-officer', [RegisterController::class, 'delete_officer'])->name('director.delete_details');
+    Route::post('/director/update-details-officer', [RegisterController::class, 'update_details_of_officer'])->name('director.update_details');
+    Route::post('/director/delete-officer', [RegisterController::class, 'delete_officer'])->name('director.delete_details');
 });
