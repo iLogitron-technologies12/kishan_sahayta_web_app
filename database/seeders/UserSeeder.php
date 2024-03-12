@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
                 'name' => 'Super Admin',
                 'email' => 'super_admin@demo.com',
                 'mobile_no' => '0000000000',
+                'account_status' => 1,
                 'password' => Hash::make('123456'),
                 'created_at' => now()
             ],
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
                 'name' => 'Agri Expert',
                 'email' => 'agri_expert@demo.com',
                 'mobile_no' => '0000000000',
+                'account_status' => 1,
                 'password' => Hash::make('123456'),
                 'created_at' => now()
             ],
@@ -36,11 +38,11 @@ class UserSeeder extends Seeder
                 'name' => 'Farmer',
                 'email' => 'farmer@demo.com',
                 'mobile_no' => '0000000000',
+                'account_status' => 1,
                 'password' => Hash::make('123456'),
                 'created_at' => now()
             ],
         ];
-
         User::insert($users);
     }
 }
