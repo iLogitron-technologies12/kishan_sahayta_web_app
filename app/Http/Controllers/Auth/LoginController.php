@@ -7,10 +7,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use App\Models\UserOtp;
-use App\Models\User;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -94,84 +90,5 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
-    }
-    //function to view the forgot password page
-    public function forgot_password(){
-       return view('login.forgot');
-    }
-    //function to view the change password page
-    public function change_forgot_password(){
-        return view('login.change-forgot-password');
-    }
-    //function to generate otp for forgot password page
-    public function generate_otp_for_forgot_password(Request $request)
-    {
-        $mobile_no = $request->input('phone_number');
-       
-        $user = User::where('mobile_no', $mobile_no)->first();
-        
-        if ($user) {
-            $user_id = $user->id;
-            $randomNumber = mt_rand(100000, 999999);
-    
-            // Store the random number in a session variable
-            $request->session()->put('random_number', $randomNumber);
-    
-            $saveotp = UserOtp::create([
-                'phone_number' => $mobile_no,
-                'otp' => $randomNumber,
-                'otp_sent_for' => 'Reset Password',
-                'user_id' => $user_id,
-            ]);
-    
-            echo $randomNumber;
-        } else {
-            echo "<span style='color:red;'>User not found with the provided phone number.</span>";
-        }
-    }
-    //check Forgot password otp
-    public function check_forgot_password_otp(Request $request){
-        // print_r($request->all());
-        // die();
-        $phone_no = $request->input('phone');
-        $inputOTP = $request->input('otp');
-        $sessionOTP = session('random_number'); // Accessing session variable without using Session class
-
-        if ($inputOTP == $sessionOTP) {
-            // OTP matched, do something like password reset
-            return redirect()->route('change-forgot-password', ['phone' => $phone_no]); // Redirect to your password reset page
-        } else {
-            // OTP didn't match, show error message
-            return back()->with('error', 'Invalid OTP. Please try again.'); // Redirect back with error message
-        }
-
-    }
-    public function recreate_password(Request $request){
-        $validator = Validator::make($request->all(), [
-            'new_password' => ['required', 'regex:/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])[\w\W\d\D]{5,}$/'],
-            're_enter_password' => 'required | same:new_password'
-        ], [
-            'new_password.regex' => 'Password requires number, letter, and symbol and at least 5 characters long'
-        ]);
-        
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-        $mobile_no = $request->input('phone');
-       
-        $user = User::where('mobile_no', $mobile_no)->first();
-        
-        if ($user) {
-            $user->password = Hash::make($request->new_password);
-            $user->save();
-        
-        return redirect()->route('login')->with('success', 'Password changed successfully!');
-    } else {
-        // Redirect back with error message if user not found
-        return back()->with('error', 'User with provided phone number not found.');
-    }
-        
     }
 }
