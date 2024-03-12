@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Oil Palm Cultivation</title>
+    <title>Kishan Sahayta</title>
     <link rel="icon" type="image/x-icon" href="{{url('frontend/dist/img/logo.png')}}">
 
     <!-- specially for modal -->
