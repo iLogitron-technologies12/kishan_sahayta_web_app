@@ -17,7 +17,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Manage Applications</h1>
+                    <h1>Dashboard</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -46,80 +46,183 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
-    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
 
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>150</h3>
 
-{{--
-                    <div class="card">
-                        <div class="card-header">
-                            <form method="post" action="{{ route('officer.application_filter') }}">
-                                @csrf
-                                <span>
-                                    Sub Division(Agri/Horti):
-                                    <select name="sub_division">
-                                        <option value="{{ $sub_division }}">{{ $sub_division }}</option>
-                                    </select>
-                                </span>
-
-                                <span class="filter-form">
-                                    Block:
-                                    <select name="block" id="block">
-                                        <option value="Select Block">Select Block</option>
-                                        @foreach($blocks as $block)
-                                        <option value="{{ $block->ulb }}">{{ $block->ulb }}</option>
-                                        @endforeach
-                                    </select>
-                                </span>
-
-                                <span class="filter-form">
-                                    <button type="submit" style="background-color: #343a40; color: white; border-radius: 15px;">Show Applications</button>
-                                </span>
-                            </form>
-                        </div>
---}}
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Sl No.</th>
-                                        <th>Application Number </th>
-                                        <th>Applicant Name</th>
-                                        <th>Block</th>
-                                        <!-- <th>Ward/GP/VC</th> -->
-                                        <th>Area(in Kani)</th>
-                                        <th>Gender</th>
-                                        <th>Status</th>
-                                        <th>View Appl.</th>
-                                    </tr>
-                                </thead>
-
-
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-
-                    </div>
-                    <!-- /.card -->
-
+                  <p>Total generated advisories</p>
                 </div>
-                <!-- /.col -->
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
             </div>
-            <!-- /.row -->
+
+
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>53</h3>
+
+                  <p>Total disseminated advisories</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+
+
+
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3>44</h3>
+
+                  <p> Total Agri Expert</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h3>65</h3>
+                  <p>Total farmers logged in</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+          </div>
+          <!-- /.row -->
+          <!-- Main row -->
+       
+      </section>
+    
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          
+          <!-- /.col (LEFT) -->
+          <div class="col-md-12">
+            <!-- BAR CHART -->
+            <div class="card card-success">
+              <div class="card-header">
+                <h3 class="card-title">Bar Chart</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button> -->
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart">
+                  <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          
+
+          </div>
+          <!-- /.col (RIGHT) -->
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
     </section>
+
+
+ 
     <!-- /.content -->
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+  <script>
+ 
+  
+$(function () {
+    //-------------
+    //- BAR CHART -
+    //-------------
+   var barChartCanvas = $('#barChart').get(0).getContext('2d');
+var barChartData = {
+  labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
+  datasets: [
+    {
+      label               : 'Digital Goods',
+      backgroundColor     : 'rgba(60,141,188,0.9)',
+      borderColor         : 'rgba(60,141,188,0.8)',
+      pointRadius          : false,
+      pointColor          : '#3b8bba',
+      pointStrokeColor    : 'rgba(60,141,188,1)',
+      pointHighlightFill  : '#fff',
+      pointHighlightStroke: 'rgba(60,141,188,1)',
+      data                : [28, 48, 40, 19, 86, 27, 90,30,23,10,22,60]
+    },
+    
+    // Add more datasets as needed
+  ]
+};
 
+var barChartOptions = {
+  maintainAspectRatio : false,
+  responsive : true,
+  legend: {
+    display: false
+  },
+  scales: {
+    xAxes: [{
+      gridLines : {
+        display : false,
+      }
+    }],
+    yAxes: [{
+      gridLines : {
+        display : false,
+      }
+    }]
+  }
+};
+
+new Chart(barChartCanvas, {
+  type: 'bar',
+  data: barChartData,
+  options: barChartOptions
+});
+
+    
+  })
+</script>
 
 @endsection

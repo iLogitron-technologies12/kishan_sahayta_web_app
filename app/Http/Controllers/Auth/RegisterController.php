@@ -21,6 +21,32 @@ use Illuminate\Http\Response;
 
 class RegisterController extends Controller
 {
+
+    public function super_admin_dashboard()
+    {
+      $name = Auth::user()->name;
+      $data = [
+        'name' => $name,
+    ];
+        return view('frontend.super_admin.dashboard',$data);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function register_officer()
     {
         return view('auth.register_officer');

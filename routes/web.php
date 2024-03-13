@@ -48,9 +48,9 @@ Route::middleware(['request-filter'])->group(function () {
     // Route::get('/officer/application-filter', [FarmerApplicationController::class, 'officer_applications'])->name('officer.application_filter');
 
 });
+// Route::get('/admin/dashboard', [DashboardController::class, 'index']);
 
-
-
+Route::get('/dashboard', [RegisterController::class, 'super_admin_dashboard']);
 
 
 
@@ -319,7 +319,7 @@ Route::get('/success', [HomeController::class, 'success'])->name('success');
 //saved success
 Route::get('/saved-success', [HomeController::class, 'saved_sucess'])->name('saved-success');
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+ 
 // Route::get('/farmer-registration', [FarmerRegistrationController::class, 'index']);
 // Route::post('/farmer-registration', [FarmerRegistrationController::class, 'farmerdata']);
 // Route::get('/farmers',function(){
