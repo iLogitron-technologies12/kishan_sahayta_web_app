@@ -45,7 +45,7 @@ class LoginController extends Controller
 
 
             if ($role == 'super_admin') {
-                return redirect()->intended('/superadmin/create-agri-experts');
+                return redirect()->intended('/superadmin/add-agri-experts');
             } elseif (($role == 'agri_expert') || ($role == 'training_partner_godrej')) {
                 return redirect()->intended('/training-partner/submitted-applications');
             } elseif ($role == 'farmer') {
@@ -107,23 +107,23 @@ class LoginController extends Controller
     public function generate_otp_for_forgot_password(Request $request)
     {
         $mobile_no = $request->input('phone_number');
-       
+
         $user = User::where('mobile_no', $mobile_no)->first();
-        
+
         if ($user) {
             $user_id = $user->id;
             $randomNumber = mt_rand(100000, 999999);
-    
+
             // Store the random number in a session variable
             $request->session()->put('random_number', $randomNumber);
-    
+
             $saveotp = UserOtp::create([
                 'phone_number' => $mobile_no,
                 'otp' => $randomNumber,
                 'otp_sent_for' => 'Reset Password',
                 'user_id' => $user_id,
             ]);
-    
+
             echo $randomNumber;
         } else {
             echo "<span style='color:red;'>User not found with the provided phone number.</span>";
@@ -153,25 +153,25 @@ class LoginController extends Controller
         ], [
             'new_password.regex' => 'Password requires number, letter, and symbol and at least 5 characters long'
         ]);
-        
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
         $mobile_no = $request->input('phone');
-       
+
         $user = User::where('mobile_no', $mobile_no)->first();
-        
+
         if ($user) {
             $user->password = Hash::make($request->new_password);
             $user->save();
-        
+
         return redirect()->route('login')->with('success', 'Password changed successfully!');
     } else {
         // Redirect back with error message if user not found
         return back()->with('error', 'User with provided phone number not found.');
     }
-        
+
     }
 }
