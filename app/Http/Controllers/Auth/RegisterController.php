@@ -13,159 +13,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Response;
-use Illuminate\Database\QueryException;
+
 
 
 class RegisterController extends Controller
 {
-    public function add_agri_expert(Request $request)
+
+    public function super_admin_dashboard()
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => 'required|min:3',
-                'designation' => 'required|string|min:3',
-                'email' => 'required|email|unique:users,email',
-                'mobile_number' => 'required|digits:10|unique:users,mobile_no',
-                'password' => ['required', 'min:8', 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[_.\-@])[A-Za-z\d_.\-@]+$/'],
-                'confirm_password' => ['required', 'min:8', 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[_.\-@])[A-Za-z\d_.\-@]+$/', 'same:password'],
-                // 'confirm_password' => 'required|min:8|same:password'
-            ]
-        );
+      $name = Auth::user()->name;
+      $data = [
+        'name' => $name,
+    ];
+        return view('frontend.super_admin.dashboard',$data);
 
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        try {
-            $user_to_be_added = User::create([
-                'name' => $request->name,
-                'designation' => $request->designation,
-                'email' => $request->email,
-                'mobile_no' => $request->mobile_number,
-                'account_status' => 1,
-                'password' => Hash::make($request->confirm_password),
-            ]);
-
-            AclRule::create([
-                'user_id' => $user_to_be_added->id,
-                'role' => 'agri_expert',
-                'district' => $request->district,
-                'sub_division' => $request->sub_division,
-            ]);
-
-            return redirect()->back()->with('success', 'Agri Expert added Successfully!');
-        } catch (QueryException $e) {
-            // $errorCode = $e->errorInfo[1];
-
-            /*if ($errorCode == 1062) { // 1062 is the MySQL error code for duplicate entry
-                return redirect()->back()->with('error', 'Email address already exists. Please choose a different one.');
-            } else {
-                return redirect()->back()->with('error', 'Please try again.');
-            }*/
-            return redirect()->back()->with('error', 'Failed to add Agri Expert. Please check the field with errors and try again.' . $e);
-        }
-    }
-
-    public function manage_agri_experts()
-    {
-        $name = Auth::user()->name;
-        $all_users = User::all();
-
-        $data = [
-            'name' => $name,
-            'all_users' => $all_users,
-        ];
-
-        return view('frontend.super_admin.manage_agri_experts', $data);
-    }
-
-    public function view_edit_agri_experts($id)
-    {
-        $name = Auth::user()->name;
-        $that_user_to_be_edited = User::where('id', $id)->first();
-        // dd($that_user_to_be_edited);
-
-        $role_of_that_user_to_be_edited = AclRule::where('user_id', $id)->first()->role;
-        // dd($role_of_that_user_to_be_edited);
-
-        if(!$role_of_that_user_to_be_edited == "agri_expert") {
-            return redirect()->back()->with('error', 'You are not allowed to do this.');
-
-        }
-
-        $data = [
-            'name' => $name,
-            'that_user_to_be_edited' => $that_user_to_be_edited,
-        ];
-
-        return view('frontend.super_admin.edit_agri_experts', $data);
-    }
-
-    public function edit_agri_experts(Request $request, $id)
-    {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'name' => 'required|min:3',
-                'designation' => 'required|string|min:3',
-                'email' => 'required|email|unique:users,email,' . $id,
-                'mobile_number' => 'required|digits:10|unique:users,mobile_no,' . $id,
-                'account_status' => 'required|in:0,1',
-            ]
-        );
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        try {
-            DB::beginTransaction();
-
-            $that_user_to_be_edited = User::where('id', $id)->first();
-
-            if (!$that_user_to_be_edited) {
-                throw new \Exception('User not found.');
-            }
-
-            $that_user_to_be_edited->name = $request->name;
-            $that_user_to_be_edited->designation = $request->designation;
-            $that_user_to_be_edited->email = $request->email;
-            $that_user_to_be_edited->mobile_no = $request->mobile_number;
-            $that_user_to_be_edited->account_status = $request->account_status;
-            $that_user_to_be_edited->save();
-
-            DB::commit();
-
-            return redirect()->back()->with('success', 'Saved Successfully!');
-        } catch (QueryException $e) {
-            DB::rollBack();
-
-            /*Do not remove this block of code
-            //  Handle the exception (log, redirect, etc.)
-            return redirect()->back()->with('error', 'Database error: ' . $e->getMessage());
-            */
-            return redirect()->back()->with('error', 'Failed to Save: ' . $e->getMessage());
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            // Handle the exception (log, redirect, etc.)
-            return redirect()->back()->with('error', $e->getMessage());
-        }
-
-
-        // return view('frontend.super_admin.edit_agri_experts', $data);
-    }
-
-    public function code_copy()
-    {
-        return view('frontend.super_admin.code_copy');
     }
 
 
@@ -178,6 +42,20 @@ class RegisterController extends Controller
 
 
 
+
+
+
+
+
+    public function register_officer()
+    {
+        return view('auth.register_officer');
+    }
+
+    public function enter_phone_number()
+    {
+        return view('new_application.enter_phone_number');
+    }
 
     public function submit_phone_number(Enter_Phone_Number_Request $request)
     {
@@ -287,11 +165,11 @@ class RegisterController extends Controller
             ->pluck('ward')
             ->toArray();
 
-        // dd($wards);
+            // dd($wards);
 
         // Add the static value to the beginning of the array
         array_unshift($wards, 'Select GP/VC');
-
+        
         return response()->json($wards);
     }
 
@@ -388,79 +266,80 @@ class RegisterController extends Controller
     {
         return view('auth.profile');
     }
-    //**************************************************New Addition***27/12/2023***************** */
-    public function add_officer()
-    {
-        $name = Auth::user()->name;
+//**************************************************New Addition***27/12/2023***************** */
+public function add_officer()
+{
+    $name = Auth::user()->name;
 
-        $user_ids = AclRule::where('role', 'officer')->pluck('user_id');
+    $user_ids = AclRule::where('role', 'officer')->pluck('user_id');
 
-        $users = User::whereIn('id', $user_ids)->get();
+    $users = User::whereIn('id', $user_ids)->get();
 
-        $sub_divisions = DB::table('tripura')
-            ->select('subdivision')
-            ->distinct()
-            ->get();
+    $sub_divisions = DB::table('tripura')
+        ->select('subdivision')
+        ->distinct()
+        ->get();
 
-        $data = [
-            'name' => $name,
-            'users' => $users,
-            'sub_divisions' => $sub_divisions
+    $data = [
+        'name' => $name,
+        'users' => $users,
+        'sub_divisions' => $sub_divisions
+    ];
+
+    return view('frontend.director.add_officer', $data);
+}
+
+public function update_details_of_officer(Request $request)
+{
+    $user = User::where('id', $request->id)->first();
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->save();
+}
+
+public function add_officer_in_table(Request $request)
+{
+    if (User::where('email', $request->officer_email)->exists()) {
+        $response = [
+            'status' => 'error',
+            'message' => 'User with this email already exists.'
         ];
+        return response()->json($response, Response::HTTP_BAD_REQUEST);
+    } else {
+        $user = User::create([
+            'name' => $request->officer_name,
+            'email' => $request->officer_email,
+            'mobile_no' => 11,
+            'password' => Hash::make($request->confirm_password)
+        ]);
 
-        return view('frontend.director.add_officer', $data);
-    }
-
-    public function update_details_of_officer(Request $request)
-    {
-        $user = User::where('id', $request->id)->first();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
-    }
-
-    public function add_officer_in_table(Request $request)
-    {
-        if (User::where('email', $request->officer_email)->exists()) {
-            $response = [
-                'status' => 'error',
-                'message' => 'User with this email already exists.'
-            ];
-            return response()->json($response, Response::HTTP_BAD_REQUEST);
-        } else {
-            $user = User::create([
-                'name' => $request->officer_name,
-                'email' => $request->officer_email,
-                'mobile_no' => 11,
-                'password' => Hash::make($request->confirm_password)
-            ]);
-
-            AclRule::create([
-                'user_id' => $user->id,
-                'role' => 'officer',
-                'sub_division' => $request->subdivision
-            ]);
-
-            $response = [
-                'status' => 'success',
-                'message' => 'User added successfully.'
-            ];
-            return response()->json($response, Response::HTTP_OK);
-        }
-    }
-
-    public function delete_officer(Request $request)
-    {
-        $user = User::where('id', $request->id)->first();
-        $user->delete();
-
-        $user_in_acl = AclRule::where('user_id', $request->id)->first();
-        $user_in_acl->delete();
+        AclRule::create([
+            'user_id' => $user->id,
+            'role' => 'officer',
+            'sub_division' => $request->subdivision
+        ]);
 
         $response = [
             'status' => 'success',
-            'message' => 'User credentials deleted successfully.'
+            'message' => 'User added successfully.'
         ];
         return response()->json($response, Response::HTTP_OK);
     }
+}
+
+public function delete_officer(Request $request)
+{
+    $user = User::where('id', $request->id)->first();
+    $user->delete();
+
+    $user_in_acl = AclRule::where('user_id', $request->id)->first();
+    $user_in_acl->delete();
+
+    $response = [
+        'status' => 'success',
+        'message' => 'User credentials deleted successfully.'
+    ];
+    return response()->json($response, Response::HTTP_OK);
+}
+
 }

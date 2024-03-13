@@ -57,7 +57,7 @@
                 <div class="inner">
                   <h3>150</h3>
 
-                  <p>New Orders</p>
+                  <p>Total generated advisories</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
@@ -72,9 +72,9 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+                  <h3>53</h3>
 
-                  <p>Bounce Rate</p>
+                  <p>Total disseminated advisories</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
@@ -93,7 +93,7 @@
                 <div class="inner">
                   <h3>44</h3>
 
-                  <p>User Registrations</p>
+                  <p> Total Agri Expert</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
@@ -107,7 +107,7 @@
               <div class="small-box bg-danger">
                 <div class="inner">
                   <h3>65</h3>
-                  <p>Unique Visitors</p>
+                  <p>Total farmers logged in</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
@@ -125,27 +125,9 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-6">
-            <!-- PIE CHART -->
-            <div class="card card-danger">
-              <div class="card-header">
-                <h3 class="card-title">Pie Chart</h3>
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div>
-            </div>
-          </div>
+          
           <!-- /.col (LEFT) -->
-          <div class="col-md-6">
+          <div class="col-md-12">
             <!-- BAR CHART -->
             <div class="card card-success">
               <div class="card-header">
@@ -155,9 +137,9 @@
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
                   </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <!-- <button type="button" class="btn btn-tool" data-card-widget="remove">
                     <i class="fas fa-times"></i>
-                  </button>
+                  </button> -->
                 </div>
               </div>
               <div class="card-body">
@@ -187,41 +169,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
   <script>
-  $(function () {
-   
-    //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieData        = {
-      labels: [
-          'Chrome33',
-          'IE33',
-          'FireFox33',
-          'Safari33',
-          'Opera33',
-          'Navigator33',
-      ],
-      datasets: [
-        {
-          data: [700,500,400,600,300,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }
-      ]
-    }
-    var pieOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: pieData,
-      options: pieOptions
-    })
-  });
+ 
   
 $(function () {
     //-------------
@@ -229,7 +177,7 @@ $(function () {
     //-------------
    var barChartCanvas = $('#barChart').get(0).getContext('2d');
 var barChartData = {
-  labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','November','December'],
   datasets: [
     {
       label               : 'Digital Goods',
@@ -240,19 +188,9 @@ var barChartData = {
       pointStrokeColor    : 'rgba(60,141,188,1)',
       pointHighlightFill  : '#fff',
       pointHighlightStroke: 'rgba(60,141,188,1)',
-      data                : [28, 48, 40, 19, 86, 27, 90]
+      data                : [28, 48, 40, 19, 86, 27, 90,30,23,10,22,60]
     },
-    {
-      label               : 'Other Goods',
-      backgroundColor     : 'rgba(255,99,132,0.9)',
-      borderColor         : 'rgba(255,99,132,0.8)',
-      pointRadius          : false,
-      pointColor          : '#ff6384',
-      pointStrokeColor    : 'rgba(255,99,132,1)',
-      pointHighlightFill  : '#fff',
-      pointHighlightStroke: 'rgba(255,99,132,1)',
-      data                : [45, 67, 32, 15, 75, 30, 85]
-    },
+    
     // Add more datasets as needed
   ]
 };

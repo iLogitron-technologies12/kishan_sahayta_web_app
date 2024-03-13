@@ -1,6 +1,6 @@
 <footer class="main-footer">
   <div class="float-right d-none d-sm-block">
-    <b>Oil Palm Cultivation</b>
+    <b>Kishan Sahayta</b>
   </div>
   <strong>&copy; 2023 <a href="https://iLogitron.com"> iLogitron Technologies</a>.</strong> All rights reserved.
 </footer>

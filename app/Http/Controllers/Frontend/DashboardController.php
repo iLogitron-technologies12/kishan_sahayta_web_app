@@ -16,12 +16,8 @@ use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
-    public function index()
-    {
-        return view('frontend.dashboard');
-
-    }
-          //#################################################### Dashboard for Director Change based on date,month and year#####################################
+   
+  //#################################################### Dashboard for Director Change based on date,month and year#####################################
     public function datechart(Request $request)
     {
         // Retrieve data based on the request parameters
