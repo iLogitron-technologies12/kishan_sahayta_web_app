@@ -20,7 +20,8 @@ class RequestFilter
     {
         // if user is unauthenticated redirecting him to login page
         if (!$request->user()) {
-            return $next($request);
+            return redirect()->route('/');
+            // return $next($request);
 
             // return redirect()->route('login');
         }

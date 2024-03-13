@@ -52,7 +52,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{url('/officer/dashboard')}}" class="brand-link">
         <img src="{{url('frontend/dist/img/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 1">
-        <span class="brand-text font-weight-light">Oil Palm Cultivation</span>
+        <span class="brand-text font-weight-light">Kishan Sahayta</span>
     </a>
 
     <!-- Sidebar -->
@@ -93,44 +93,34 @@
 
                         </p>
                     </a>
-
                 </li>
 
 
-
                 <li class="nav-item">
-                    <a href="{{url('/officer/applications')}}" class="nav-link">
-                        <i class="nav-icon fas fa-cubes"></i>
+                    <a href="{{url('superadmin/add-agri-experts')}}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Applications
-                            <!-- <i class="fas fa-angle-left right"></i> -->
+                            Add Agri Experts
                         </p>
                     </a>
-                    <!-- <ul class="nav nav-treeview">
-
-                        <li class="nav-item">
-                            <a href="/g-dashboard" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>All Applications</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="/new-application" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>New Farmer Applications</p>
-                            </a>
-                        </li>
-
-                    </ul> -->
                 </li>
-                <li class="nav-item">
-                            <a href="{{url('/officer/view-manage-training')}}" class="nav-link">
-                                <i class="fas fa-wine-bottle nav-icon"></i>
 
-                                <p>Manage Training</p>
-                            </a>
-                        </li>
+                <li class="nav-item">
+                    <a href="{{url('superadmin/manage-agri-experts')}}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Manage Agri Experts
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{url('/officer/view-manage-training')}}" class="nav-link">
+                        <i class="fas fa-wine-bottle nav-icon"></i>
+
+                        <p>Manage Training</p>
+                    </a>
+                </li>
 
 
 

@@ -14,6 +14,6 @@ class SuperAdminController extends Controller
         $data = [
             'name' => $name,
         ];
-        return view('frontend.super_admin.dashboard', $data);
+        return view('frontend.super_admin.add_agri_experts', $data);
     }
 }
