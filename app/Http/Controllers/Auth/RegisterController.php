@@ -22,30 +22,6 @@ use Illuminate\Http\Response;
 class RegisterController extends Controller
 {
 
-    public function super_admin_dashboard()
-    {
-      $name = Auth::user()->name;
-      $data = [
-        'name' => $name,
-    ];
-        return view('frontend.super_admin.dashboard',$data);
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function register_officer()
     {
@@ -169,7 +145,7 @@ class RegisterController extends Controller
 
         // Add the static value to the beginning of the array
         array_unshift($wards, 'Select GP/VC');
-        
+
         return response()->json($wards);
     }
 

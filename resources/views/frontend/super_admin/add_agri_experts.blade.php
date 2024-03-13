@@ -1,4 +1,4 @@
-@extends('frontend.layouts.main')
+@extends('frontend.super_admin_layouts.main')
 @section('main-container')
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -48,13 +48,15 @@
     .show-password {
         text-align: end;
     }
-
     .show-password:hover {
         cursor: pointer;
     }
 
     .card-body {
         overflow-y: hidden !important;
+    }
+    .add-agri-expert {
+        font-weight: 600 !important;
     }
 
 </style>
@@ -64,13 +66,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Add Agri Experts</h1>
+                    <h1 class="add-agri-expert">Add Agri Experts</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <!-- <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
                         <li class="breadcrumb-item active">Manage Applications</li> -->
-                        <li class="breadcrumb-item active"><a href="/officer/dashboard"> Relaod Table </a></li>
+                        <!-- <li class="breadcrumb-item active"><a href="/officer/dashboard"> Relaod Table </a></li> -->
                     </ol>
                 </div>
                 @if(isset($success_message))

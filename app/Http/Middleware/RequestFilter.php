@@ -25,23 +25,27 @@ class RequestFilter
 
             // return redirect()->route('login');
         }
+        else {
+            return $next($request);
 
-        $requested_url = $request->path();
+        }
+
+        // $requested_url = $request->path();
         // dd($requested_url);
 
         // fetching the role of the user
-        $role = AclRule::where('user_id',$request->user()->id)->first()->role;
+        // $role = AclRule::where('user_id',$request->user()->id)->first()->role;
         // dd($role);
 
-        if($role == 'officer') {
-            return $next($request);
+        // if($role == 'officer') {
+            // return $next($request);
             // return back();
-        }
-        else{
+        // }
+        // else{
             // return back();
-            return $next($request);
+            // return $next($request);
 
-        }
+        // }
 
 
         /*

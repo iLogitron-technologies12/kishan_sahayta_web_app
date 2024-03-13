@@ -11,6 +11,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DisbursementController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\AgriExpertController;
 
 
 
@@ -29,38 +30,62 @@ Route::get('/login', [LoginController::class, 'login_page'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 //Route for Forgot password page
-Route::get('/forgot-password',[LoginController::class,'forgot_password'])->name('forgot-password');
-Route::post('/forgot-password',[LoginController::class,'check_forgot_password_otp'])->name('check-otp');
+Route::get('/forgot-password', [LoginController::class, 'forgot_password'])->name('forgot-password');
+Route::post('/forgot-password', [LoginController::class, 'check_forgot_password_otp'])->name('check-otp');
 //Route for generate OTP
-Route::get('/generate-otp-for-forget-password',[LoginController::class,'generate_otp_for_forgot_password']);
+Route::get('/generate-otp-for-forget-password', [LoginController::class, 'generate_otp_for_forgot_password']);
 //Route for change Password page
-Route::get('/change-forgot-password',[LoginController::class,'change_forgot_password'])->name('change-forgot-password');
-Route::post('/change-forgot-password',[LoginController::class,'recreate_password'])->name('recreate-password');
+Route::get('/change-forgot-password', [LoginController::class, 'change_forgot_password'])->name('change-forgot-password');
+Route::post('/change-forgot-password', [LoginController::class, 'recreate_password'])->name('recreate-password');
 
 
 Route::get('/', [HomeController::class, 'index'])->name('/');
 
 /* ****************************************** **********Routes for super admin part ********** ********************************************** */
 
-// Dashboard that will be only accessed by Super Admin
+
 Route::middleware(['request-filter'])->group(function () {
-    Route::get('/superadmin/add-agri-experts', [SuperAdminController::class, 'dashboard'])->name('super_admin.manage_agri_expert');
+
+    ############################################################################################################################################
+    // Routes which will be accessed by Super Admin starts here.
+
+    // For viewing the page of adding agri experts
+    Route::get('/superadmin/add-agri-experts', [SuperAdminController::class, 'view_form_of_adding_agri_expert'])->name('super_admin.manage_agri_expert');
     // Route::get('/officer/application-filter', [FarmerApplicationController::class, 'officer_applications'])->name('officer.application_filter');
 
-    Route::post('/superadmin/add-agri-experts', [RegisterController::class, 'add_agri_expert'])->name('super_admin.create_agri_expert');
+    // For saving the data page of agri experts
+    Route::post('/superadmin/add-agri-experts', [SuperAdminController::class, 'add_agri_expert'])->name('super_admin.create_agri_expert');
 
-    // For managing agri experts
-    Route::get('/superadmin/manage-agri-experts', [RegisterController::class, 'manage_agri_experts'])->name('super_admin.manage_agri_experts');
-
-    // For viewing the page for editing particular agri experts
-    Route::get('/superadmin/manage-agri-experts/edit-user/{id}', [RegisterController::class, 'view_edit_agri_experts'])->name('super_admin.view_edit_agri_experts');
-
+    // For viewing and managing agri experts
+    Route::get('/superadmin/manage-agri-experts', [SuperAdminController::class, 'manage_agri_experts'])->name('super_admin.manage_agri_experts');
 
     // For viewing the page for editing particular agri experts
-    Route::post('/superadmin/manage-agri-experts/edit-user/{id}', [RegisterController::class, 'edit_agri_experts'])->name('super_admin.edit_agri_experts');
+    Route::get('/superadmin/manage-agri-experts/edit-user/{id}', [SuperAdminController::class, 'view_edit_agri_experts'])->name('super_admin.view_edit_agri_experts');
+
+    // For saving the changes for editing particular agri experts
+    Route::post('/superadmin/manage-agri-experts/edit-user/{id}', [SuperAdminController::class, 'edit_agri_experts'])->name('super_admin.edit_agri_experts');
+
+    // For deleting particular agri expert
+    Route::post('/superadmin/manage-agri-experts/delete-user', [SuperAdminController::class, 'delete_agri_expert'])->name('super_admin.delete_agri_expert');
 
 
     Route::get('/code-copy', [RegisterController::class, 'code_copy']);
+
+    // Routes which will be accessed by Super Admin ends here.
+    ############################################################################################################################################
+
+
+    ############################################################################################################################################
+    // Routes which will be accessed by Agri Expert starts here.
+
+    Route::get('/agri-expert/dashboard', [AgriExpertController::class, 'dashboard'])->name('agri_expert.dashboard');
+
+
+    // Routes which will be accessed by Super Admin ends here.
+    ############################################################################################################################################
+
+
+
 });
 // Route::get('/admin/dashboard', [DashboardController::class, 'index']);
 
