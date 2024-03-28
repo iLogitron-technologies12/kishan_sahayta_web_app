@@ -86,21 +86,20 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item"> <a href="{{url('/superadmin/dashboard')}}" class="nav-link">
+                <li class="nav-item"> <a href="{{url('/agri-expert/dashboard')}}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
-
                         </p>
                     </a>
                 </li>
 
 
                 <li class="nav-item">
-                    <a href="{{url('superadmin/add-agri-experts')}}" class="nav-link">
+                    <a href="{{url('/agri-expert/add-advisory')}}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Add Agri Experts
+                            Create Advisory
                         </p>
                     </a>
                 </li>
@@ -109,7 +108,7 @@
                     <a href="{{url('superadmin/manage-agri-experts')}}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Manage Agri Experts
+                            Manage Advisories
                         </p>
                     </a>
                 </li>
@@ -148,22 +147,22 @@
                 </li> -->
 
                 <li class="nav-item" style="margin-top:20px;">
-                    <a href="/superadmin/manage-profile" class="nav-link">
+                    <a href="/profile" class="nav-link">
                         <i class="" aria-hidden="true"></i>
                         <p>
-                            Edit Profile
+                            Profile
                         </p>
                     </a>
                 </li>
 
-                <!-- <li class="nav-item" style="">
+                <li class="nav-item" style="">
                     <a href="/change-password" class="nav-link">
                         <i class="" aria-hidden="true"></i>
                         <p>
                             Change Password
                         </p>
                     </a>
-                </li> -->
+                </li>
 
                 <li class="nav-item">
                     <a href="{{ url('/logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

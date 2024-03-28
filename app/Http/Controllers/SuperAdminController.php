@@ -174,4 +174,84 @@ class SuperAdminController extends Controller
             return redirect()->back()->with('error', 'This action is unauthorized. It will be reported.');
         }
     }
+
+    public function view_edit_profile_page()
+    {
+        $current_user_details = Auth::user();
+        $data = [
+            'name' => $current_user_details->name,
+            'email' => $current_user_details->email,
+            'mobile_no' => $current_user_details->mobile_no,
+        ];
+
+        return view('frontend.super_admin.profile', $data);
+    }
+
+    public function save_profile_changes(Request $request)
+    {
+        if ($request->filled('profile_changes')) {
+            $current_user_details = Auth::user();
+            $id = $current_user_details->id;
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'name' => 'required|min:3',
+                    'email' => 'required|email|unique:users,email,' . $id,
+                    'mobile_number' => 'required|digits:10|unique:users,mobile_no,' . $id,
+                ]
+            );
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            $current_user_details->name = $request->name;
+            $current_user_details->email = $request->email;
+            $current_user_details->mobile_no = $request->mobile_number;
+            $current_user_details->save();
+
+            return redirect()->back()->with('success', 'Changes saved Successfully!');
+        } elseif ($request->filled('password_changes')) {
+
+            $current_user_details_for_psw_change = Auth::user();
+            // dd($request->all());
+            // dd($current_user_details);
+
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'current_password' => ['required'],
+                    'password' => ['required', 'min:8', 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[_.\-@])[A-Za-z\d_.\-@]+$/'],
+                    'confirm_password' => ['required', 'min:8', 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[_.\-@])[A-Za-z\d_.\-@]+$/', 'same:password'],
+                    // 'confirm_password' => 'required|min:8|same:password'
+                ]
+            );
+
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            $password_in_database = $current_user_details_for_psw_change->password;
+
+            if (Hash::check($request->current_password, $password_in_database)) {
+
+                $current_user_details_for_psw_change->password = $request->confirm_password;
+                $current_user_details_for_psw_change->save();
+
+                return redirect()->back()->with('success_after_changing_password', 'Password changed successfully!');
+            } else {
+                return redirect()->back()->with('error_when_changing_password', 'Current password does match with our records!')->withInput();
+            }
+
+            dd($password_in_database);
+        }
+    }
+
+    public function change_password(Request $request)
+    {
+    }
 }

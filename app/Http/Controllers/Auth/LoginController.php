@@ -45,9 +45,9 @@ class LoginController extends Controller
 
 
             if ($role == 'super_admin') {
-                return redirect()->intended('/superadmin/add-agri-experts');
-            } elseif (($role == 'agri_expert') || ($role == 'training_partner_godrej')) {
-                return redirect()->intended('/training-partner/submitted-applications');
+                return redirect()->intended('/superadmin/dashboard');
+            } elseif (($role == 'agri_expert') || ($role == 'agri_expert')) {
+                return redirect()->intended('/agri-expert/dashboard');
             } elseif ($role == 'farmer') {
                 return redirect()->intended('/director/all-applications');
             }
@@ -83,7 +83,7 @@ class LoginController extends Controller
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
-        ])->withInput($request->only('email')); // Keep the entered email in the input field
+        ])->withInput($request->only('email'));
     }
 
     public function logout(Request $request)

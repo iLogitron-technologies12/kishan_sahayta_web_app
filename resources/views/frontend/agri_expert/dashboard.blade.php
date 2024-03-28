@@ -1,4 +1,4 @@
-@extends('frontend.super_admin_layouts.main')
+@extends('frontend.agri_expert_layouts.main')
 @section('main-container')
 
 <style>

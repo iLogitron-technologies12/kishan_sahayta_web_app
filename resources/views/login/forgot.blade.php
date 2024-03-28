@@ -53,7 +53,7 @@
                           </div>
                            @endif
                             </div>
-                           
+
                         </div>
 
                                 <div class="row forgot-input-field-spaces">
@@ -64,7 +64,7 @@
                                 </div>
 
                     </form>
-                   
+
                 </div>
                <!--  </div>
             </div> -->
@@ -78,7 +78,7 @@
         $(document).ready(function() {
             $("#message").fadeOut();
             $("#otpbtn").click(function(){
-                
+
            var phone_number = $("#phone").val();
            $.ajax({
             url:'/generate-otp-for-forget-password',
@@ -92,7 +92,7 @@
         });
         });
     </script>
-   
+
 
 </body>
 

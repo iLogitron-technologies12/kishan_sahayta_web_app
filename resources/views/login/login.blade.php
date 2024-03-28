@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Madimi+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Madimi+One&family=Noto+Sans+JP:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{url('css/login-page-style.css')}}">
 
 </head>
@@ -42,7 +43,7 @@
                     <div class="form-body">
                         <h2 class="application-title"> <b>Login</b> </h2>
                         <form method="post" action="{{ route('login') }}">
-                        @csrf
+                            @csrf
                             <div class="row input-field-spaces">
                                 <label for="email" class="col-md-12 col-form-label">Email:</label>
                                 <div class="col-md-12">
@@ -57,6 +58,7 @@
                             <div class="row">
                                 <label for="password" class="col-md-12 col-form-label">Password:</label>
                                 <div class="col-md-12">
+                                    <i class=" fa fa-eye icon toggle-password"></i>
                                     <input type="password" class="form-input-field" name="password" placeholder="Enter Password" value="{{ old('password') }}" required>
                                     @error('password')
                                     <div class=" alert alert-danger">{{ $message }}
@@ -89,12 +91,25 @@
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- Include Bootstrap JS and jQuery -->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
 
+    <script>
+        $(document).ready(function() {
+            $('.toggle-password').click(function() {
+                var passwordField = $(this).closest('.row').find('.form-input-field');
+                var fieldType = passwordField.attr('type');
+                if (fieldType === 'password') {
+                    passwordField.attr('type', 'text');
+                    $(this).removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    passwordField.attr('type', 'password');
+                    $(this).removeClass('fa-eye-slash').addClass('fa-eye');
+
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
