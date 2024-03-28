@@ -21,6 +21,15 @@ use Illuminate\Http\Response;
 
 class RegisterController extends Controller
 {
+    public function super_admin_dashboard()
+    {
+        $name = Auth::user()->name;
+        $data = [
+            'name' => $name,
+        ];
+        return view('frontend.super_admin.dashboard', $data);
+    }
+
 
 
     public function register_officer()
@@ -141,7 +150,7 @@ class RegisterController extends Controller
             ->pluck('ward')
             ->toArray();
 
-            // dd($wards);
+        // dd($wards);
 
         // Add the static value to the beginning of the array
         array_unshift($wards, 'Select GP/VC');
@@ -242,80 +251,79 @@ class RegisterController extends Controller
     {
         return view('auth.profile');
     }
-//**************************************************New Addition***27/12/2023***************** */
-public function add_officer()
-{
-    $name = Auth::user()->name;
+    //**************************************************New Addition***27/12/2023***************** */
+    public function add_officer()
+    {
+        $name = Auth::user()->name;
 
-    $user_ids = AclRule::where('role', 'officer')->pluck('user_id');
+        $user_ids = AclRule::where('role', 'officer')->pluck('user_id');
 
-    $users = User::whereIn('id', $user_ids)->get();
+        $users = User::whereIn('id', $user_ids)->get();
 
-    $sub_divisions = DB::table('tripura')
-        ->select('subdivision')
-        ->distinct()
-        ->get();
+        $sub_divisions = DB::table('tripura')
+            ->select('subdivision')
+            ->distinct()
+            ->get();
 
-    $data = [
-        'name' => $name,
-        'users' => $users,
-        'sub_divisions' => $sub_divisions
-    ];
-
-    return view('frontend.director.add_officer', $data);
-}
-
-public function update_details_of_officer(Request $request)
-{
-    $user = User::where('id', $request->id)->first();
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->save();
-}
-
-public function add_officer_in_table(Request $request)
-{
-    if (User::where('email', $request->officer_email)->exists()) {
-        $response = [
-            'status' => 'error',
-            'message' => 'User with this email already exists.'
+        $data = [
+            'name' => $name,
+            'users' => $users,
+            'sub_divisions' => $sub_divisions
         ];
-        return response()->json($response, Response::HTTP_BAD_REQUEST);
-    } else {
-        $user = User::create([
-            'name' => $request->officer_name,
-            'email' => $request->officer_email,
-            'mobile_no' => 11,
-            'password' => Hash::make($request->confirm_password)
-        ]);
 
-        AclRule::create([
-            'user_id' => $user->id,
-            'role' => 'officer',
-            'sub_division' => $request->subdivision
-        ]);
+        return view('frontend.director.add_officer', $data);
+    }
+
+    public function update_details_of_officer(Request $request)
+    {
+        $user = User::where('id', $request->id)->first();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+    }
+
+    public function add_officer_in_table(Request $request)
+    {
+        if (User::where('email', $request->officer_email)->exists()) {
+            $response = [
+                'status' => 'error',
+                'message' => 'User with this email already exists.'
+            ];
+            return response()->json($response, Response::HTTP_BAD_REQUEST);
+        } else {
+            $user = User::create([
+                'name' => $request->officer_name,
+                'email' => $request->officer_email,
+                'mobile_no' => 11,
+                'password' => Hash::make($request->confirm_password)
+            ]);
+
+            AclRule::create([
+                'user_id' => $user->id,
+                'role' => 'officer',
+                'sub_division' => $request->subdivision
+            ]);
+
+            $response = [
+                'status' => 'success',
+                'message' => 'User added successfully.'
+            ];
+            return response()->json($response, Response::HTTP_OK);
+        }
+    }
+
+    public function delete_officer(Request $request)
+    {
+        $user = User::where('id', $request->id)->first();
+        $user->delete();
+
+        $user_in_acl = AclRule::where('user_id', $request->id)->first();
+        $user_in_acl->delete();
 
         $response = [
             'status' => 'success',
-            'message' => 'User added successfully.'
+            'message' => 'User credentials deleted successfully.'
         ];
         return response()->json($response, Response::HTTP_OK);
     }
-}
-
-public function delete_officer(Request $request)
-{
-    $user = User::where('id', $request->id)->first();
-    $user->delete();
-
-    $user_in_acl = AclRule::where('user_id', $request->id)->first();
-    $user_in_acl->delete();
-
-    $response = [
-        'status' => 'success',
-        'message' => 'User credentials deleted successfully.'
-    ];
-    return response()->json($response, Response::HTTP_OK);
-}
-
 }

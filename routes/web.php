@@ -49,6 +49,9 @@ Route::middleware(['request-filter'])->group(function () {
     ############################################################################################################################################
     // Routes which will be accessed by Super Admin starts here.
 
+    Route::get('/superadmin/dashboard', [RegisterController::class, 'super_admin_dashboard']);
+
+
     // For viewing the page of adding agri experts
     Route::get('/superadmin/add-agri-experts', [SuperAdminController::class, 'view_form_of_adding_agri_expert'])->name('super_admin.manage_agri_expert');
     // Route::get('/officer/application-filter', [FarmerApplicationController::class, 'officer_applications'])->name('officer.application_filter');
@@ -68,6 +71,16 @@ Route::middleware(['request-filter'])->group(function () {
     // For deleting particular agri expert
     Route::post('/superadmin/manage-agri-experts/delete-user', [SuperAdminController::class, 'delete_agri_expert'])->name('super_admin.delete_agri_expert');
 
+    // For viewing the profile page
+    Route::get('/superadmin/manage-profile', [SuperAdminController::class, 'view_edit_profile_page'])->name('super_admin.view_edit_profile_page');
+
+    // For saving the profile changes(name. email, mobile_no)
+    Route::post('/superadmin/manage-profile', [SuperAdminController::class, 'save_profile_changes'])->name('super_admin.save_profile_changes');
+
+    // For changing the password
+    Route::post('/superadmin/change-password', [SuperAdminController::class, 'save_profile_changes'])->name('super_admin.change_password');
+
+
 
     Route::get('/code-copy', [RegisterController::class, 'code_copy']);
 
@@ -78,8 +91,14 @@ Route::middleware(['request-filter'])->group(function () {
     ############################################################################################################################################
     // Routes which will be accessed by Agri Expert starts here.
 
+    // Route for accessing the dashboard
     Route::get('/agri-expert/dashboard', [AgriExpertController::class, 'dashboard'])->name('agri_expert.dashboard');
 
+    // For viewing the page of adding advisories
+    Route::get('/agri-expert/add-advisory', [AgriExpertController::class, 'view_add_advisory_page'])->name('agri_expert.view_add_advisory_page');
+
+    // For saving the advisories
+    Route::post('/superadmin/add-agri-experts', [SuperAdminController::class, 'add_agri_expert'])->name('super_admin.create_agri_expert');
 
     // Routes which will be accessed by Super Admin ends here.
     ############################################################################################################################################
@@ -89,7 +108,7 @@ Route::middleware(['request-filter'])->group(function () {
 });
 // Route::get('/admin/dashboard', [DashboardController::class, 'index']);
 
-Route::get('/dashboard', [RegisterController::class, 'super_admin_dashboard']);
+// Route::get('/dashboard', [RegisterController::class, 'super_admin_dashboard']);
 
 
 
@@ -358,7 +377,7 @@ Route::get('/success', [HomeController::class, 'success'])->name('success');
 //saved success
 Route::get('/saved-success', [HomeController::class, 'saved_sucess'])->name('saved-success');
 
- 
+
 // Route::get('/farmer-registration', [FarmerRegistrationController::class, 'index']);
 // Route::post('/farmer-registration', [FarmerRegistrationController::class, 'farmerdata']);
 // Route::get('/farmers',function(){
